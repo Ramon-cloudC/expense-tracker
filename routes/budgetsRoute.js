@@ -6,9 +6,9 @@ const { createBudget, getBudgetsByUserId } = require('../model/budgetModel');
 
 // Add a new budget
 router.post('/', ensureAuthenticated, async (req, res) => {
-  const { userId, categoryId, amount, startDate, endDate } = req.body;
+  const { amount } = req.body;
   try {
-    const budget = await createBudget(userId, categoryId, amount, startDate, endDate);
+    const budget = await createBudget( amount );
     res.status(201).json({ success: true, budget });
   } catch (err) {
     res.status(500).json({ success: false, error: 'Failed to create budget' });

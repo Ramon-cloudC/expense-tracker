@@ -5,8 +5,7 @@ const pool = require('./db');
 const createBudget = async (userId, categoryId, amount, startDate, endDate) => {
   const query = `
     INSERT INTO budgets (user_id, category_id, amount, start_date, end_date)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *;
+    VALUES ($1,$2,$3,$4,$5);
   `;
   const result = await pool.query(query, [userId, categoryId, amount, startDate, endDate]);
   return result.rows[0];

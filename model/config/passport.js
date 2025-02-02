@@ -11,7 +11,7 @@ const initializePassport = (passport) => {
         new LocalStrategy(async (username, password, done) => {
             try{
                 const user = await findUserByUsername(username);
-                console.log(user);
+                // console.log(user.user_id);
                 if(!user){
                    
                     return done(null, false, {message: 'Invalid username or password'});
@@ -23,7 +23,6 @@ const initializePassport = (passport) => {
 
                 return done(null, user);
             } catch(err){
-                console.error('Error logging in', err.message);
                 return done(err);
             }
         })
@@ -32,13 +31,17 @@ const initializePassport = (passport) => {
 
 // Serialize user into the session after login
 passport.serializeUser((user, done) => {
+    // console.log('serializing user', user);
     done(null, user.user_id);
   });
 
   // Deserialize user from the session
   passport.deserializeUser(async (id, done) => {
+    // console.log('deserializing user with ID: ', id)
     try {
       const user = await findUserById(id); // Add a `findUserById` function in the User model
+    //   console.log('user found: ', user )
+    if (!user) return done(null, false); 
       done(null, user);
     } catch (err) {
       done(err);
