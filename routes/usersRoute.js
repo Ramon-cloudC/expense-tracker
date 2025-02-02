@@ -34,18 +34,25 @@ router.post('/add', async(req, res) =>{
 });
 
 // Login (Placeholder for Passport.js integration)
-router.post('/login', passport.authenticate('local',{
-        successRedirect: '/users/dashboard',
-        failureRedirect: '/users/login-failure',
-    })
-);
+router.post('/login', passport.authenticate('local', {
+  failureRedirect: '/users/login-failure',
+}), (req, res) => {
+  console.log('Authenticated user: ', req.user); // User should be available here
+  res.redirect('/users/dashboard');
+});
 
 
 //Login upon success
 router.get('/dashboard', ensureAuthenticated, (req, res) => {
-  res.status(200).json({
-      message: 'Welcome' + req.user.username, 
-  })
+  console.log("🔎 Checking req.user in /dashboard:", req.user);
+
+    res.json({
+    success: true,
+    message: `Welcome ${req.user.username}`, 
+    user: req.user // Send user details
+  });
+
+
 });
 
 // Login failure
@@ -54,7 +61,7 @@ router.get('/login-failure', (req, res) => {
   });
   
   // Logout a user
-  router.get('/logout', ensureAuthenticated, (req, res) => {
+  router.get('/logout',(req, res) => {
     req.logout((err) => {
       if (err) {
         console.error('Error logging out:', err.message);
@@ -64,6 +71,7 @@ router.get('/login-failure', (req, res) => {
         if (err) {
           return res.status(500).json({ success: false, error: 'Failed to destroy session' });
         }
+      res.clearCookie('connect.sid');
       res.status(200).json({ success: true, message: 'Logged out successfully' });
     });
   });
