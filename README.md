@@ -43,3 +43,8 @@ Start the app.
 
 Stay tuned for updates, as work on the view session will 
 begin soon. Enjoy using the Expense Tracker App!
+
+The Budget component works, it creates a budget and stores it in the db.
+Still got the req.user problem 
+I might need to edit the type of data in the budgets table as 
+I want just the start date, end date and amount

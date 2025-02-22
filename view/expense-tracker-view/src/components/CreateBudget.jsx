@@ -1,41 +1,62 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from './protected/auth/AUthContext';
+import BudgetsByUserId from './BudgetsByUserId';
 
-const Budget = () => {
+
+const CreateBudget = () => {
+
+    const { userId } = useContext(AuthContext);
     const [ amount, setAmount ] = useState('');
-    const [ categoryId, setCategory ] = useState('');
-    const [ successMessage, setSuccessMessage ] = useState(''); 
-    const [ userId, setUserId] = useState('');
+    const [ category, setCategory ] = useState('');
+    const [ categoryId, setCategoryId ] = useState('');
     const [ startDate, setStartDate ] = useState('');
     const [ endDate, setEndDate ] = useState('');
-
+    
+    const [ successMessage, setSuccessMessage ] = useState(''); 
+    
     const handleAmountChange = (e) => {
         setAmount(Number(e.target.value));
+        setSuccessMessage('');
     };
 
     const handleCategoryChange = (e) => {
-        setCategory(e.target.value);
-    };
+        const selectedCategory = e.target.value;
+        setCategory(selectedCategory);
 
-    const handleUserIdChange = (e) => {
-        setUserId(e.target.value);
-    }
+        const categoryMapId = {
+            'Groceries': 1,
+            'Utilities': 2,
+            'Transportation': 3,
+            'Housing': 4,
+            'Healthcare': 5,
+            'Personal Care': 6,
+            'Insurances': 7,
+            'Entertainment': 8,
+        }
+
+        setCategoryId(categoryMapId[selectedCategory]);
+        setSuccessMessage('');
+    };
 
     const handleStartDateChange = (e) => {
         setStartDate(e.target.value);
-    }
+        setSuccessMessage('');
+    };
 
     const handleEndDateChange = (e) => {
         setEndDate(e.target.value);
-    }
+        setSuccessMessage('');
+    };
 
     // Send info to the backend and create a budget
   
         
         const handleSubmit = async(e) => {
             e.preventDefault();
-
-            if(!amount || !categoryId){
-                alert('Input fields required.')
+            console.log(`Category selected: ${category}, ID: ${categoryId}`);
+            if(!amount || !startDate || !endDate){
+                alert('Input fields required.');
+                return;
             }
             try{
                 const response = await fetch('http://localhost:5000/budgets', {
@@ -65,15 +86,21 @@ const Budget = () => {
 
     return (
         <>
-            <h3>Your budget</h3>
+            <h3>Create budget</h3>
             <form onSubmit={handleSubmit} >
                 <label>
-                    User id:
-                    <input type='number' name='userId' value={userId} onChange={handleUserIdChange}/>
-                </label>
-                <label>
-                    Category Id:
-                    <input type='number' name='categoryId' value={categoryId} onChange={handleCategoryChange}/>
+                    Category:
+                    <select value={category} onChange={handleCategoryChange}>
+                        <option value=''>Select</option>
+                        <option value='Groceries'>Groceries</option>
+                        <option value='Utilities'>Utilities</option>
+                        <option value='Transportation'>Transportation</option>
+                        <option value='Housing'>Housing</option>
+                        <option value='Healthcare'>Healthcare</option>
+                        <option value='Personal Care'>Personal Care</option>
+                        <option value='Insurances'>Insurances</option>
+                        <option value='Entertainment'>Entertainment</option>
+                    </select>
                 </label>
                 <label>
                     Set Amount:
@@ -87,13 +114,14 @@ const Budget = () => {
                     End Date: 
                     <input type='date' name='endDate' value={endDate} onChange={handleEndDateChange}/>
                 </label>
-                <button type='submit'>Save</button>
+                <button type='submit'>Add Budget</button>
             </form>
             {/* {budget ? <p>Available budget: {budget}</p> : ''} */}
             {successMessage ? <p>{successMessage}</p> : ''}
+            {userId && (< BudgetsByUserId />)}
             
         </>
     )
 };
 
-export default Budget;
+export default CreateBudget;

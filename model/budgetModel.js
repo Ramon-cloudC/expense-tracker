@@ -7,7 +7,7 @@ const createBudget = async (userId, categoryId, amount, startDate, endDate) => {
     INSERT INTO budgets (user_id, category_id, amount, start_date, end_date)
     VALUES ($1,$2,$3,$4,$5);
   `;
-  const result = await pool.query(query, [userId, categoryId, amount, startDate, endDate]);
+  const result = await pool.query(query, [ userId, categoryId, amount, startDate, endDate]);
   return result.rows[0];
 };
 
@@ -33,8 +33,20 @@ const getBudgetsByCategory = async (userId, categoryId) => {
   return result.rows;
 };
 
+// Delete budget by id
+const deleteBudgetsById = async (budgetId) => {
+  const query = `
+  DELETE FROM  budgets 
+  WHERE budget_id = $1;
+  `;
+
+  const result = await pool.query(query, [budgetId]);
+  return result.rows[0];
+}
+
 module.exports = {
   createBudget,
   getBudgetsByUserId,
   getBudgetsByCategory,
+  deleteBudgetsById
 };
