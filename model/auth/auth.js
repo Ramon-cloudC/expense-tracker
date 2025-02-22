@@ -4,7 +4,7 @@ const ensureAuthenticated = (req, res, next) => {
   console.log('🔍 Session:', req.session);
   console.log('🛡️ req.isAuthenticated():', req.isAuthenticated());
     if (req.isAuthenticated()) {
-        return next()
+        return next();
       };
       res.status(401).json({ success: false, message: 'Unauthorized' });
     }

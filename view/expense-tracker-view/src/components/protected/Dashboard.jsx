@@ -1,21 +1,22 @@
 
-import { useAuth } from "./auth/AUthContext";
-import Budget from "../Budget";
+import { useContext } from "react";
+import { AuthContext} from "./auth/AuthContext";
+import CreateBudget from "../CreateBudget";
 
 const Dashboard = () => {
 
-    const { logout } = useAuth();
+    const { logout } = useContext(AuthContext);
     const handleLogout = () => {
         logout();
     }
     return (
 
         <>
-            <h1>Welcome back! </h1>
+            
             <div>
                 <h3>Your current dashboard</h3>
             </div>
-            <Budget />
+            <CreateBudget />
             <button onClick={handleLogout}>Logout</button>
         </>
     )
