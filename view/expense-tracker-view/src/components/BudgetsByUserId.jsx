@@ -1,11 +1,16 @@
-import { useContext, useState, useEffect } from "react"
-import { AuthContext } from "./protected/auth/AuthContext"
-
+import { useContext, useState, useEffect } from "react";
+import { AuthContext } from "./protected/auth/AuthContext";
+import { BudgetCategoryContext } from "./context/BudgetCategoryContext";
+import AddExpenseForm from "./AddExpenseForm";
 
 const BudgetsByUserId = () => {
 
     const { userId } = useContext(AuthContext);
+    const { selectedCategory, setSelectedCategory } = useContext(BudgetCategoryContext);
+    const [ selectedBudgetId, setSelectedBudgetId ] = useState(null);
     const [ budgets, setBudgets ] = useState([]);
+    const [ editingBudgetId, setEditingBudgetId] = useState(null); 
+
     useEffect(() => {
         const getBudgets = async () => {
             try{
@@ -15,15 +20,37 @@ const BudgetsByUserId = () => {
                 });
                 if(response.ok){
                     const data = await response.json();
-                    setBudgets(data.budgets);
                     // console.log('response data:', data);
+                    setBudgets(data.budgets);
                     console.log('budgets:', budgets);
+                    budgets.forEach(budget => {
+                        console.log(budget.budget_id);
+                    })
                 }
             } catch(err){
                 console.error('Error fetching budgets', err);
             }
         }
         getBudgets();
+    }, [userId]);
+
+    useEffect(() => {
+        const getAmountExpense =  async () => {
+            try{
+                const response = await fetch(`http://localhost:5000/expenses/${userId}`, {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if(response.ok){
+                    const data = await response.json();
+                    console.log(data);
+                    // setSingleAmount(mapSingleAmount);
+                }
+            } catch(err){
+                console.error("Failed fetching amount for this expense", err);
+            }
+        };
+        getAmountExpense();
     }, [userId]);
 
     const getCategoryName = (categoryId) => {
@@ -59,28 +86,39 @@ const BudgetsByUserId = () => {
 
     };
 
+    const handleAddExpense = (budgetId, categoryId) => {
+        setEditingBudgetId(editingBudgetId === budgetId ? null : budgetId );
+        setSelectedCategory(categoryId);
+        setSelectedBudgetId(budgetId);
+        console.log(selectedCategory);
+    };
+
     return (
         <>
     
-             <h3>Your budgets:</h3>
+             {budgets.length > 0 ? (
+                <h3>Your Budgets</h3>
+             ) : ('')}
                 {budgets.length > 0 ? (
-                    budgets.map((budget, index) => (
-                        <div key={index} style={{
+                    budgets.map((budget) => (
+                        <div key={budget.budget_id} style={{
                             border: "1px solid #ccc",
                             padding: "10px",
                             marginBottom: "10px",
                             borderRadius: "5px"
                         }}>
-                            <h4>Category: {getCategoryName(budget.category_id)}</h4>
-                            <p>Amount: {budget.amount}</p>
+                            <h4>{getCategoryName(budget.category_id)}</h4>
+                            <p>Amount: 0 / {budget.amount} £</p>
                             <p>Start Date: {new Date(budget.start_date).toLocaleDateString()}</p>
-                            <p>Days left: {(new Date(budget.end_date) - new Date(budget.start_date)) / (1000 * 60 * 60 * 24)} days</p>
-                            <button>Edit</button>
+                            <p>Days left: {Math.floor((new Date(budget.end_date) - new Date()) / (1000 * 60 * 60 * 24))} days</p>
+                            <button onClick={() => handleAddExpense(budget.budget_id, budget.category_id)}>
+                            {editingBudgetId === budget.budget_id ? "Close" : "Add expense"}
+                            </button>
                             <button onClick={() => handleDelete(budget.budget_id)}>Delete</button>
+                            {editingBudgetId === budget.budget_id && <AddExpenseForm selectedBudgetId={selectedBudgetId} />}
                         </div>
                     ))
                 ) : (<p>No budgets found</p>)}
-            
         </>
     )
 };

@@ -15,7 +15,7 @@ const CreateBudget = () => {
     const [ successMessage, setSuccessMessage ] = useState(''); 
     
     const handleAmountChange = (e) => {
-        setAmount(Number(e.target.value));
+        setAmount(e.target.value);
         setSuccessMessage('');
     };
 
@@ -54,6 +54,8 @@ const CreateBudget = () => {
         const handleSubmit = async(e) => {
             e.preventDefault();
             console.log(`Category selected: ${category}, ID: ${categoryId}`);
+            console.log("User ID:", userId);
+            console.log("Amount:", amount)
             if(!amount || !startDate || !endDate){
                 alert('Input fields required.');
                 return;
