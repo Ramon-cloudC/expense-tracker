@@ -45,6 +45,13 @@ Stay tuned for updates, as work on the view session will
 begin soon. Enjoy using the Expense Tracker App!
 
 The Budget component works, it creates a budget and stores it in the db.
-Still got the req.user problem 
-I might need to edit the type of data in the budgets table as 
-I want just the start date, end date and amount
+The req.user problem fixed by moving the dashboard route at the top.
+
+Implemented the logout with session destroyed.
+
+Things to do:
+
+-Add delete budget route; (Done)
+-Add edit budget
+-Add expenses? 
+

@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from './protected/auth/AUthContext';
-import BudgetsByUserId from './BudgetsByUserId';
+import styles from './css-modules/CreateBudget.module.css';
+// import BudgetsByUserId from './BudgetsByUserId';
 
 
 const CreateBudget = () => {
@@ -87,10 +88,10 @@ const CreateBudget = () => {
 
 
     return (
-        <>
-            <h3>Create budget</h3>
-            <form onSubmit={handleSubmit} >
-                <label>
+        <div className={styles.mainDiv}>
+            
+            <form onSubmit={handleSubmit} className={styles.form1}>
+                <label className={styles.categoryInput}>
                     Category:
                     <select value={category} onChange={handleCategoryChange}>
                         <option value=''>Select</option>
@@ -116,13 +117,13 @@ const CreateBudget = () => {
                     End Date: 
                     <input type='date' name='endDate' value={endDate} onChange={handleEndDateChange}/>
                 </label>
-                <button type='submit'>Add Budget</button>
+                <div className={styles.divButton}>
+                <button type='submit' className={styles.buttonCreate}>Add Budget</button>
+                </div>
             </form>
-            {/* {budget ? <p>Available budget: {budget}</p> : ''} */}
-            {successMessage ? <p>{successMessage}</p> : ''}
-            {userId && (< BudgetsByUserId />)}
-            
-        </>
+            {successMessage ? <p>{successMessage}</p> : null}
+            {/* {userId && < BudgetsByUserId />} */}
+        </div>
     )
 };
 

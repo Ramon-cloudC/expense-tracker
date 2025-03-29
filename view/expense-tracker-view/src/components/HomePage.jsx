@@ -1,11 +1,23 @@
 
-import { useState } from "react";
+import Login from "./Login";
+import styles from "./css-modules/HomePage.module.css"
 
 const HomePage = () => {
     return (
         <>
-        <h1>Expense Tracker App</h1>
-        <p>Take control of your finances with our all-in-one application designed to manage expenses and budgets seamlessly.</p>
+           <div className={styles.mainDiv}> 
+             <div className={styles.h1Div}>
+              <div>
+                <h1 className={styles.h1}>MoneyWatch</h1>     
+              </div>  
+              <div>
+                <p className={styles.p}>Take control of your finances with our all-in-one application.</p>
+              </div>
+             </div> 
+             <div className={styles.loginDiv}>
+              <Login/>
+             </div>
+           </div>
         </>
     )
 }

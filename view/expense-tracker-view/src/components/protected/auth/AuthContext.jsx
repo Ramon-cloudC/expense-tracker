@@ -1,5 +1,6 @@
 
-import { createContext ,useContext, useState, useEffect } from "react";
+import { createContext ,useContext, useState} from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -19,11 +20,10 @@ const AuthProvider = ({children}) => {
                 credentials: 'include',
             });
             
-            const data = response.json();
+            const data = await response.json();
             if(response.ok){
                 console.log(data);
                 setIsAuth(false);
-                window.location.href = '/'
             }
         } catch(err){
             console.error(`Couldn't logout the session`);

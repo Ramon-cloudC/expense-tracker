@@ -1,18 +1,22 @@
 
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import styles from "./css-modules/Register.module.css"
 
 const Register = () => {
 
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const [ username, setUsername ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ errorMessage, setErrorMessage ] = useState('');
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if(!username || !email || !password ){
+            setErrorMessage("All fields are required.");
             alert("All fields are required.");
             return;
         };
@@ -34,7 +38,7 @@ const Register = () => {
                     setUsername('');
                     setEmail('');
                     setPassword('');
-                    window.location.href = '/login';
+                    navigate('/');
                 } else {
                     throw new Error('Failed to register user.');
                  }
@@ -46,31 +50,39 @@ const Register = () => {
     };
 
     return (
-        <>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username</label>
+        <div className={styles.mainDiv}>
+          <div className={styles.h2Div}>
+            <h2>Register</h2>
+          </div>
+          <div className={styles.formDiv}>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                {/* <label htmlFor="username">Username</label> */}
                 <input
                     type="text"
+                    placeholder="Create Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
-                 <label htmlFor="email">Email</label>
+                 {/* <label htmlFor="email">Email</label> */}
                 <input 
                     type="email"
+                    placeholder="Your email address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <label htmlFor="password">Password</label>
+                {/* <label htmlFor="password">Password</label> */}
                 <input 
                     type="password"
+                    placeholder="Create Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Register</button>
+                {errorMessage && <p style={{color: "red"}}>{errorMessage}</p>}
+                <button type="submit">Sign Up</button>
             </form>
-            
-        </>
+          </div>
+
+        </div>
     )
 };
 
