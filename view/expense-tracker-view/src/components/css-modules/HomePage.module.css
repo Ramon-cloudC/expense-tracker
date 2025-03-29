@@ -1,0 +1,39 @@
+.mainDiv {
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: space-between;
+    height: 50vw;
+}
+
+.h1Div {
+    background: url("https://images.ctfassets.net/ro61k101ee59/4FzmSQ7JtJXpgt47isVfDX/b8f2942d74b3620de0baec8a7635afb8/Title.png?w=1200&q=75");
+    background-size: cover;
+    background-position: bottom;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-right: #174d38 solid 2px;
+    width: 100vw;
+}
+
+.h1SubDiv {
+    /* background-color: black; */
+    
+}
+
+.pDiv {
+    /* background-color: #f2f2f2; */
+    /* opacity: 0.8; */
+}
+
+.h1 {
+    padding: 2rem 0 0 3rem;
+    /* text-align: ; */
+    font-size: 2.2rem;
+    /* opacity: 0.6; */
+}
+
+.p {
+    padding-left: 3rem;
+    width: 50%;
+}

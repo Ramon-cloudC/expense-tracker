@@ -1,6 +1,7 @@
 
 import { useState, useEffect, useContext} from "react";
 import { AuthContext } from "./AUthContext";
+import styles from "../../css-modules/ProtectedRoute.module.css";
 
 
 const ProtectedRoute = ({children}) => {
@@ -42,7 +43,7 @@ const ProtectedRoute = ({children}) => {
             };
 
             return isAuth ? (
-                <div>
+                <div className={styles.mainDiv}>
                     <h1>Hello! {usernameSession}</h1>
                     {children}
                 </div>

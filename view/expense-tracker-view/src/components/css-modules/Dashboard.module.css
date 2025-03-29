@@ -1,0 +1,16 @@
+.mainDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.h3{
+    padding: 2rem;
+
+}
+
+.plus {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-left: 1.2rem;
+}

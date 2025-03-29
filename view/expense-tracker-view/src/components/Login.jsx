@@ -1,11 +1,14 @@
 
-import { useState } from "react";
+import { useState} from "react";   
+import { useNavigate } from "react-router-dom";
+import styles from "./css-modules/Login.module.css";
 
 const Login = () => {
 
 const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
 const [error, setError] = useState('');
+const navigate = useNavigate();
 
 const handleSubmit = async(e) => {
     e.preventDefault();
@@ -46,25 +49,39 @@ const handleSubmit = async(e) => {
     }
 };
 
+const registerRedirect = () => {
+    navigate("/register");  
+};
+
     return (
         <>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username</label>
-                <input 
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                {error && <p style={{color: "red"}}>{error}</p>}
-                <button type="submit">Submit</button>
-            </form>
+            <div className={styles.mainDiv}>
+                <h2 className={styles.loginTitle}>Login</h2>
+                <form className={styles.form} onSubmit={handleSubmit}>
+                  <div className={styles.subformDiv}>
+                    <input 
+                        type="text"
+                        className={styles.input}   
+                        value={username}
+                        placeholder="Username"
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </div>  
+                  <div className={styles.subformDiv}>
+                    <input
+                        type="password"
+                        className={styles.input}
+                        value={password}
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>  
+                    {error && <p style={{color: "red", fontSize: "0.8rem"}}>{error}</p>}
+                    <button className={styles.button} type="submit">Sign In</button><br/>
+                </form>
+                <h4 className={styles.h4}>OR</h4>
+                <button className={styles.button} onClick={registerRedirect}>Register</button>
+            </div>
         </>
     )
 };

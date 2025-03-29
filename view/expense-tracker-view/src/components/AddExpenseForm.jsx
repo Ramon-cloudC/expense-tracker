@@ -4,8 +4,9 @@ import { BudgetCategoryContext } from "./context/BudgetCategoryContext";
 // import { BudgetIdContext } from "./context/BudgetIdContext";
 
 //TODO: 
-// Implement Save changes button
-// Add budget_id in the payload and send to the db
+// Implement Save changes button (in progress)
+// Implement adding amount dynamically when adding expenses and keep track of the amount for that specific budget; 
+// Add budget_id in the payload and send to the db (DONE)
 // Retrieve userId, categoryId still not sending to db (DONE)
 
 
@@ -74,15 +75,12 @@ const handleDescriptionChange = (e) => {
   console.log(description);
 };
 
-
-
-
   return (
     <div>
         <h3>Add Expense</h3>
       <form onSubmit={handleSubmit}>
         <label>Amount:</label>
-        <input type="number" name="amount" min={0} placeholder="Enter amount" onChange={handleExpenseAmountChange} value={expenseAmount}/>
+        <input type="number" name="amount" min={0} step="0.01" placeholder="Enter amount" onChange={handleExpenseAmountChange} value={expenseAmount}/>
         <label>Description:</label>
         <input type="text-area" name="description" value={description} onChange={handleDescriptionChange}/> <br/>
         <button type="submit">Save Changes</button>

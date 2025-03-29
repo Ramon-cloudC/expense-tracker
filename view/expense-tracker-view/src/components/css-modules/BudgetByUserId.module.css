@@ -1,0 +1,14 @@
+.mappedDivs {
+    width: 500px;
+    margin: 2rem 0;
+    box-shadow: 1px 3px 5px 3px ;
+}
+
+.buttons {
+    margin: 0 1.2rem;
+}
+
+.buttonsDiv {
+    display: flex;
+    justify-content: end;
+}
