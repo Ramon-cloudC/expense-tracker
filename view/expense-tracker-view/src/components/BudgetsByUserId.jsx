@@ -117,23 +117,23 @@ const BudgetsByUserId = () => {
     return (
         <>
              {budgets.length > 0 ? (
-                <h3>Your Budgets</h3>
+                <h3 className={styles.h3BudgetId}>Your Budgets</h3>
              ) : null}
                 {budgets.length > 0 ? (
                     budgets.map((budget) => (
-                        <div className={styles.mappedDivs} key={budget.budget_id} style={{
+                        <div className={styles.mappedDivs}  key={budget.budget_id} style={{
                             border: "1px solid #ccc",
                             padding: "10px",
                             marginBottom: "10px",
                             borderRadius: "5px"
                         }}>
-                            <h4>{getCategoryName(budget.category_id)}</h4>
-                            <p>Amount: {totalSumExpenses[budget.budget_id] || 0} / {budget.amount} £</p>
+                            <h3>{getCategoryName(budget.category_id)}</h3>
+                            <p className={styles.parag}>Amount: <span className={styles.spanP}>{totalSumExpenses[budget.budget_id] || 0} / {budget.amount} £</span></p>
                             {totalSumExpenses[budget.budget_id] && totalSumExpenses[budget.budget_id] > 0 ? (
-                                <p>Budget left: {(Number(budget.amount) - Number(totalSumExpenses[budget.budget_id]) || 0).toFixed(2)} £</p>
+                                <p className={styles.parag}>Budget left: <span className={styles.spanP}>{(Number(budget.amount) - Number(totalSumExpenses[budget.budget_id]) || 0).toFixed(2)} £</span></p>
                             ) : null}
-                            <p>Start Date: {new Date(budget.start_date).toLocaleDateString()}</p>
-                            <p>Days left: {Math.floor((new Date(budget.end_date) - new Date()) / (1000 * 60 * 60 * 24))} days</p>
+                            <p className={styles.parag}>Start Date: <span className={styles.spanP}>{new Date(budget.start_date).toLocaleDateString()}</span></p>
+                            <p className={styles.parag}>Days left: <span className={styles.spanP}>{Math.floor((new Date(budget.end_date) - new Date()) / (1000 * 60 * 60 * 24))} days</span></p>
                             <div className={styles.buttonsDiv}>
                                 <button className={styles.buttons} onClick={() => handleAddExpense(budget.budget_id, budget.category_id)}>
                                 {editingBudgetId === budget.budget_id ? "Close" : "Add expense"}
@@ -143,7 +143,7 @@ const BudgetsByUserId = () => {
                             </div>
                         </div>
                     ))
-                ) : (<p>No budgets found</p>)}
+                ) : (<p className={styles.noBudgetFound}>No budgets found</p>)}
         </>
     )
 };

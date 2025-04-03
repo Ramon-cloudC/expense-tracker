@@ -81,7 +81,7 @@ const Register = () => {
                 <button type="submit">Sign Up</button>
             </form>
           </div>
-
+          <button onClick={()=> navigate("/")}>Back</button>  
         </div>
     )
 };
