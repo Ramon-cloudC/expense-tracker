@@ -46,12 +46,6 @@ begin soon. Enjoy using the Expense Tracker App!
 
 The Budget component works, it creates a budget and stores it in the db.
 The req.user problem fixed by moving the dashboard route at the top.
+To do:
 
-Implemented the logout with session destroyed.
-
-Things to do:
-
--Add delete budget route; (Done)
--Add edit budget
--Add expenses? 
-
+Add the graphs, and the sliding effect on budgets.

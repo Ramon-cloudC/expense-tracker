@@ -1,14 +1,37 @@
 .mappedDivs {
+    background-color: #f2f2f2;
     width: 500px;
     margin: 2rem 0;
-    box-shadow: 1px 3px 5px 3px ;
+    box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.parag {
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    font-style: oblique;
+}
+
+.spanP {
+    font-weight: 800;
 }
 
 .buttons {
-    margin: 0 1.2rem;
+    margin: 1.2rem 1.2rem;
+    opacity: 0.7;
 }
 
 .buttonsDiv {
     display: flex;
-    justify-content: end;
+    flex-direction: column;
+}
+
+.h3BudgetId {
+    margin: 2rem;
+}
+
+.noBudgetFound {
+    margin: 3rem;
 }

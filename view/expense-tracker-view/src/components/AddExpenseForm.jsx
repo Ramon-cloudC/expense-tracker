@@ -1,7 +1,7 @@
 import { useState, useContext} from "react";
 import { AuthContext } from "./protected/auth/AuthContext";
 import { BudgetCategoryContext } from "./context/BudgetCategoryContext";
-// import { BudgetIdContext } from "./context/BudgetIdContext";
+import styles from "./css-modules/AddExpenseForm.module.css";
 
 //TODO: 
 // Implement Save changes button (in progress)
@@ -77,13 +77,18 @@ const handleDescriptionChange = (e) => {
 
   return (
     <div>
-        <h3>Add Expense</h3>
-      <form onSubmit={handleSubmit}>
-        <label>Amount:</label>
-        <input type="number" name="amount" min={0} step="0.01" placeholder="Enter amount" onChange={handleExpenseAmountChange} value={expenseAmount}/>
-        <label>Description:</label>
-        <input type="text-area" name="description" value={description} onChange={handleDescriptionChange}/> <br/>
-        <button type="submit">Save Changes</button>
+        <h3 className={styles.h3Add}>Add Expense</h3>
+      <form onSubmit={handleSubmit} className={styles.formDiv}>
+        <div className={styles.labelDiv}>
+          <label>Amount:</label>
+          <input className={styles.inputs} type="number" name="amount" min={0} step="0.01" onChange={handleExpenseAmountChange} value={expenseAmount}/>
+        </div>
+        <div className={styles.labelDiv}>
+          <label>Description:</label>
+          <input className={styles.inputs} type="text-area" name="description" value={description}  onChange={handleDescriptionChange}/> 
+        </div>
+          <br/>
+        <button className= {styles.saveButton} type="submit">Save Changes</button>
       </form>
       {successMessage && <p>{successMessage}</p>}
     </div>

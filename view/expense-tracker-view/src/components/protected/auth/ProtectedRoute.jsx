@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useContext} from "react";
-import { AuthContext } from "./AUthContext";
+import { AuthContext } from "./AuthContext";
 import styles from "../../css-modules/ProtectedRoute.module.css";
 
 
@@ -44,7 +44,9 @@ const ProtectedRoute = ({children}) => {
 
             return isAuth ? (
                 <div className={styles.mainDiv}>
-                    <h1>Hello! {usernameSession}</h1>
+                  <div className={styles.h1Div}>
+                    <h1 className={styles.userH1}>Hello! 👋 {usernameSession}</h1>
+                  </div>
                     {children}
                 </div>
             ) : <div>You need to login to access this page.</div>

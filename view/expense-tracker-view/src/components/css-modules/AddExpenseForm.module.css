@@ -1,0 +1,28 @@
+.formDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.labelDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputs{
+    background-color: #e5ebe6;
+    align-self: flex-end;
+}
+
+.inputs:hover {
+    background-color: #174d38;
+}
+
+.h3Add{
+    text-align: center;
+    margin: 1.2rem;
+}
+
+.saveButton {
+    opacity: 0.7;
+}
