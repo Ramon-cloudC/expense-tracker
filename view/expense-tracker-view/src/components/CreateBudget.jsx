@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { AuthContext } from './protected/auth/AUthContext';
+import { AuthContext } from './protected/auth/AuthContext';
 import styles from './css-modules/CreateBudget.module.css';
 // import BudgetsByUserId from './BudgetsByUserId';
 

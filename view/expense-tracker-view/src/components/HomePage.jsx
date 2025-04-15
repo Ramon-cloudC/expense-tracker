@@ -10,7 +10,7 @@ const HomePage = () => {
               <div>
                 <h1 className={styles.h1}>MoneyWatch</h1>     
               </div>  
-              <div>
+              <div className={styles.par}>
                 <p className={styles.p}>Take control of your finances with our all-in-one application.</p>
               </div>
              </div> 
