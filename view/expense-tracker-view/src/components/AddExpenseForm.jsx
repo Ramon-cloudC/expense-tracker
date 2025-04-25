@@ -15,10 +15,11 @@ const AddExpenseForm =({selectedBudgetId})=> {
 
 const { userId } = useContext(AuthContext);
 const { selectedCategory } = useContext(BudgetCategoryContext);
-// const { selectedBudgetId } = useContext(BudgetIdContext);
 const [ expenseAmount, setExpenseAmount ] = useState("");
 const [ successMessage, setSuccessMessage ] = useState("");
+const [ errorMessage, setErrorMessage ] = useState("");
 const [ description, setDescription ] = useState("");
+
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -31,10 +32,13 @@ const handleSubmit = async (e) => {
   console.log("Description:", description);
   console.log("Budget ID:", selectedBudgetId );
 
-  if (!userId || !selectedCategory) {
-    console.error("Missing userId or selectedCategory");
+  if (!userId || !selectedCategory || !expenseAmount || !description) {
+    console.error("Missing mandatory inputs");
+    setErrorMessage("Amount and description are required.");
     return;
   }
+
+
   
   try{
     const response = await fetch("http://localhost:5000/expenses/add", {
@@ -91,6 +95,7 @@ const handleDescriptionChange = (e) => {
         <button className= {styles.saveButton} type="submit">Save Changes</button>
       </form>
       {successMessage && <p>{successMessage}</p>}
+      {errorMessage && <p className={styles.err}>{errorMessage}</p>}
     </div>
   )
 };
