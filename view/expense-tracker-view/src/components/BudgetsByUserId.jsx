@@ -22,7 +22,6 @@ const BudgetsByUserId = () => {
                 });
                 if(response.ok){
                     const data = await response.json();
-                    // console.log('response data:', data);
                     setBudgets(data.budgets);
                     console.log('budgets:', budgets);
                     budgets.forEach(budget => {
